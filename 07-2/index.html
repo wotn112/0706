@@ -26,25 +26,40 @@
   const itemsList = document.querySelector('.todos');
   const items = JSON.parse(localStorage.getItem('items')) || [];
   function addItem(){
-    let one = addItems.querySelector('input').value;
-    const item = `{
-        todo: ${one}, 
-        done: false}`;
+    let one = addItems[0].value;
+    let item = {
+        todo: one, 
+        done: false};
     items[items.length] = item;
-    localStorage.setItem('items', JSON.stringify(items));
-    console.log(item);
-    populateList(item);
-    document.querySelector('input').onreset;
-  }
-  function populateList(item){
-    items.map(function (item){
-        return itemsList.innerHTML =`<li>
-    <input type="checkbox" data-index=${items.indexOf(item)} id="item${items.indexOf(item)}" 'checked' />
-    <label for="item${items.indexOf(item)}">${item}</label>
-    </li>`
+    localStorage.setItem("items",JSON.stringify(items));
+    console.log(items);
+    populateList();
+    addItems.reset();
+      }
+  function populateList(){
+    itemsList.innerHTML =
+    items.map(function(item){
+        if( item.done === false){
+            return ` <li>
+            <input type="checkbox" data-index=${items.indexOf(item)} id="item${items.indexOf(item)}" 'checked' />
+            <label for="item${items.indexOf(item)}">${item.todo}</label>
+            </li> `;
+    } else   return ` <li>
+            <input type="checkbox" data-index=${items.indexOf(item)} id="item${items.indexOf(item)}"/>
+            <label for="item${items.indexOf(item)}">${item.todo}</label>
+            </li> `;
     });
   }
+    populateList();
     addItems.addEventListener('submit', addItem);
+    itemsList.addEventListener('click', function toggleDone(e){
+        items[e.target.dataset.index].done = true;
+     //   if (e.target.checked === true){
+    //  items.splice(e.target.dataset.index,1);}
+        
+        localStorage.setItem("items",JSON.stringify(items));
+        populateList();
+    });
 
   
 
