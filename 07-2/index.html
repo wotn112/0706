@@ -37,26 +37,27 @@
     addItems.reset();
       }
   function populateList(){
-    itemsList.innerHTML =
-    items.map(function(item){
-        if( item.done === false){
-            return ` <li>
-            <input type="checkbox" data-index=${items.indexOf(item)} id="item${items.indexOf(item)}" 'checked' />
-            <label for="item${items.indexOf(item)}">${item.todo}</label>
-            </li> `;
-    } else   return ` <li>
-            <input type="checkbox" data-index=${items.indexOf(item)} id="item${items.indexOf(item)}"/>
-            <label for="item${items.indexOf(item)}">${item.todo}</label>
-            </li> `;
-    });
-  }
+    todolist = items.map(function(item){
+        if(item.done == true){
+            return `<li> <input type="checkbox" data-index=${items.indexOf(item)} id="item${items.indexOf(item)}" checked />
+            <label for="item${items.indexOf(item)}">${item.todo}</label> </li>`
+            } 
+        else {
+            return `<li> <input type="checkbox" data-index=${items.indexOf(item)} id="item${items.indexOf(item)}" />
+            <label for="item${items.indexOf(item)}">${item.todo}</label> </li>`  }
+        });
+        itemsList.innerHTML = todolist.join('');
+    }
     populateList();
     addItems.addEventListener('submit', addItem);
     itemsList.addEventListener('click', function toggleDone(e){
-        items[e.target.dataset.index].done = true;
-     //   if (e.target.checked === true){
-    //  items.splice(e.target.dataset.index,1);}
-        
+        if (typeof(e.target.control) == 'undefined') {
+            return
+        } else{
+        items[e.target.control.dataset.index].done = true;}
+        if(e.target.control.checked == true){
+            items[e.target.control.dataset.index].done = false;
+        }
         localStorage.setItem("items",JSON.stringify(items));
         populateList();
     });
