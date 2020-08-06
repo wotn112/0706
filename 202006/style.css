@@ -1,0 +1,32 @@
+html {
+    font-size: 10px;
+    background-color: #05ffb0;
+    background-image: url(./waf.jpg);
+    background-position: center center;
+}
+
+
+h1 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 60px;
+    font-family: sans-serif;
+    color: hsla(14, 100%, 53%, 0.6);
+
+}
+
+div {
+    font-size: 2rem;
+
+}
+
+.topic {
+    font-size: 4rem;
+    font-family: "Source Sans Pro", "Arial", sans-serif;
+}
+
+.detail {
+    font-size: 3rem;
+    font-family: monospace;
+    font-style: oblique;
+}
